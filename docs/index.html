@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RMN AI Assistent</title>
 <meta name="description" content="An AI assistant for restaurant staff: answers from the restaurant's documents with sources, stock and supplier orders over an API, guest e-mails turned into checked drafts.">
-<meta name="theme-color" content="#23532c">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232f6b3a'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23e3a512'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#8e0d16">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b3121d'/%3E%3Crect x='0' y='16' width='32' height='16' fill='%23ffffff'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23c79a2b'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,800;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-:root { --paper: #f6f8f3; --surface: #fff; --ink: #221d17; --soft: #5f6457; --rule: #dfe4d8; --leaf: #2f6b3a; --leaf-deep: #23532c;
-  --kunyit: #e3a512; --kunyit-wash: #fbf0d2; --chili: #c2361f; --on-leaf: #fff; --sans: "Plus Jakarta Sans", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace; }
+:root { --paper: #faf8f8; --surface: #fff; --ink: #2a1617; --soft: #6b5d5e; --rule: #ecdfe0; --leaf: #b3121d; --leaf-deep: #8e0d16;
+  --kunyit: #c79a2b; --kunyit-wash: #fbf4e2; --chili: #a35a00; --on-leaf: #fff; --sans: "Plus Jakarta Sans", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace; }
 @media (prefers-color-scheme: dark) {
-  :root { --paper: #141712; --surface: #1c201a; --ink: #ecebe4; --soft: #a7ad9c; --rule: #2e3429; --leaf: #7cc28a; --leaf-deep: #18241a; --kunyit-wash: #33290f; --on-leaf: #10140f; }
+  :root { --paper: #170f10; --surface: #221718; --ink: #f2e9e9; --soft: #b9a8a9; --rule: #3a2a2b; --leaf: #ff6b6f; --leaf-deep: #5e0a10; --kunyit-wash: #352a12; --on-leaf: #1c0c0d; }
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 64px; }
@@ -23,17 +23,17 @@ body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.62 v
 a { color: var(--leaf); text-underline-offset: 3px; }
 :focus-visible { outline: 2px solid var(--kunyit); outline-offset: 3px; }
 .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
-.bar { position: sticky; top: 0; z-index: 5; background: var(--leaf-deep); color: #f3f6ef; }
+.bar { position: sticky; top: 0; z-index: 5; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.13' stroke-width='1.4'%3E%3Cellipse cx='22' cy='11' rx='5.5' ry='9'/%3E%3Cellipse cx='22' cy='33' rx='5.5' ry='9'/%3E%3Cellipse cx='11' cy='22' rx='9' ry='5.5'/%3E%3Cellipse cx='33' cy='22' rx='9' ry='5.5'/%3E%3C/g%3E%3C/svg%3E") var(--leaf-deep); color: #fff7f6; }
 .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 20px; }
 .bar b { font-weight: 800; }
 .bar nav { display: flex; gap: 20px; font-size: 15px; }
-.bar nav a { color: #f3f6ef; text-decoration: none; opacity: .85; }
+.bar nav a { color: #fff7f6; text-decoration: none; opacity: .85; }
 .bar nav a:hover { opacity: 1; }
 .project-popup { display: flex; align-items: center; gap: 12px; width: fit-content; max-width: calc(100% - 32px); margin: 16px auto 0;
   padding: 8px 10px 8px 14px; background: #fff; color: #18212b; font-size: 14px; line-height: 1.4;
-  border: 1px solid #dde3ea; border-left: 4px solid #2f6b3a; border-radius: 10px; box-shadow: 0 8px 24px rgba(0, 0, 0, .10); }
-.project-popup-badge { display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 50%; background: #2f6b3a; color: #fff; font-size: 13px; }
-.project-popup a { flex: none; padding: 7px 12px; background: #2f6b3a; color: #fff; font-weight: 700; text-decoration: none; border-radius: 6px; white-space: nowrap; }
+  border: 1px solid #dde3ea; border-left: 4px solid #b3121d; border-radius: 10px; box-shadow: 0 8px 24px rgba(0, 0, 0, .10); }
+.project-popup-badge { display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 50%; background: #b3121d; color: #fff; font-size: 13px; }
+.project-popup a { flex: none; padding: 7px 12px; background: #b3121d; color: #fff; font-weight: 700; text-decoration: none; border-radius: 6px; white-space: nowrap; }
 header { padding: 48px 0 36px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; }
 h1 { font-size: clamp(38px, 6vw, 60px); line-height: 1.02; font-weight: 800; letter-spacing: -.02em; margin: 0 0 16px; }
 .lead { font-size: 19px; margin: 0 0 22px; }
@@ -47,7 +47,10 @@ h1 { font-size: clamp(38px, 6vw, 60px); line-height: 1.02; font-weight: 800; let
 .nota .a { font-family: var(--sans); font-size: 15px; margin-bottom: 10px; }
 .nota .line { display: grid; grid-template-columns: 5.2rem minmax(0, 1fr); gap: 8px; border-top: 1px dashed rgba(122, 86, 0, .35); padding-top: 4px; margin-top: 4px; }
 .nota .k { color: var(--soft); }
-section { border-top: 1px solid var(--rule); padding: 40px 0; }
+section { padding: 40px 0; position: relative; }
+section::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 9px;
+  background: linear-gradient(135deg, var(--kunyit) 25%, transparent 25%) 0 0 / 14px 9px repeat-x,
+    linear-gradient(225deg, var(--kunyit) 25%, transparent 25%) 0 0 / 14px 9px repeat-x; opacity: .55; }
 h2 { font-size: 28px; font-weight: 800; letter-spacing: -.01em; margin: 0 0 8px; }
 .sub { color: var(--soft); margin: 0 0 22px; max-width: 62ch; }
 p { max-width: 68ch; }
@@ -57,7 +60,7 @@ p { max-width: 68ch; }
 .row img { width: 100%; border: 1px solid var(--rule); border-radius: 8px; display: block; }
 ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 32px; }
 ol.steps li { counter-increment: s; position: relative; padding-left: 44px; }
-ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--kunyit); color: #221d17; display: grid; place-items: center; font-weight: 800; font-size: 14px; }
+ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--leaf); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: 14px; }
 table { width: 100%; border-collapse: collapse; font-size: 16px; }
 th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
 th { color: var(--soft); font-weight: 600; font-size: 15px; }
@@ -85,6 +88,7 @@ footer { border-top: 1px solid var(--rule); padding: 24px 0 56px; color: var(--s
   <header>
     <div>
       <h1>An AI colleague for a small restaurant</h1>
+      <p class="lead" lang="id" style="font-style:italic;color:var(--leaf);margin:-6px 0 12px">Selamat datang di Rumah Makan Nusantara.</p>
       <p class="lead">The staff of Rumah Makan Nusantara, a fictional Indonesian restaurant in Saarbrücken, ask it about allergens, stock or free tables. It answers only from the restaurant's documents and systems, prepares supplier orders and guest replies, and leaves every decision to a person.</p>
       <div class="actions">
         <a class="btn solid" href="https://rmn-ai-assistent.onrender.com/">Open the live app</a>

@@ -39,6 +39,7 @@ export default function Stock() {
     <>
       <header className="page-head">
         <h1>Vorrat & Einkauf</h1>
+        <span className="id" lang="id">Gudang &amp; belanja</span>
         <p>Bestände aus der Warenwirtschaft. Liegt eine Zutat unter dem Mindestbestand, entsteht ein Bestellvorschlag; übermittelt wird erst nach deiner Bestätigung.</p>
       </header>
       {error && <p className="error" role="alert">{error}</p>}

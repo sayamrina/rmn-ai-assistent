@@ -48,6 +48,11 @@ export default function App() {
     <div className="shell">
       <aside className="side">
         <div className="brand">
+          <svg width="40" height="34" viewBox="0 0 40 34" aria-hidden="true">
+            {/* rumah gadang: the curved, horn-like roof of Minangkabau houses */}
+            <path d="M2 4 C8 12 13 13 20 13 C27 13 32 12 38 4 C35 13 33 16 30 17 L30 31 L10 31 L10 17 C7 16 5 13 2 4 Z" fill="#ffffff" />
+            <path d="M16 31 L16 22 L24 22 L24 31" fill="#c79a2b" />
+          </svg>
           <b>RMN AI Assistent</b>
           <span>Rumah Makan Nusantara · Saarbrücken</span>
         </div>

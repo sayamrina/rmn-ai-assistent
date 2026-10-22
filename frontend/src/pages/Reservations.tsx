@@ -12,6 +12,7 @@ export default function Reservations() {
     <>
       <header className="page-head">
         <h1>Reservierungen</h1>
+        <span className="id" lang="id">Reservasi meja</span>
         <p>Das Reservierungsbuch der nächsten Tage. 40 Plätze, davon 10 für Gäste ohne Reservierung; ein Tisch ist etwa zwei Stunden belegt.</p>
       </header>
       {error && <p className="error" role="alert">{error}</p>}

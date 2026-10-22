@@ -19,6 +19,7 @@ export default function Audit() {
     <>
       <header className="page-head">
         <h1>Protokoll</h1>
+        <span className="id" lang="id">Catatan kegiatan</span>
         <p>Jede Antwort des Assistenten und jede Buchung, Bestellung und Freigabe wird mit Zeitpunkt festgehalten. So lässt sich später nachvollziehen, wer was ausgelöst hat.</p>
       </header>
       {rows.length === 0 && <p className="muted">Noch keine Einträge. Stell im Assistenten eine Frage oder buche einen Bestand.</p>}

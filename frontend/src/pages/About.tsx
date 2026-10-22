@@ -3,6 +3,7 @@ export default function About() {
     <>
       <header className="page-head">
         <h1>Über & Anleitung</h1>
+        <span className="id" lang="id">Tentang &amp; panduan</span>
         <p>Ein KI-Assistent für das Personal eines Restaurants: Fragen beantworten, Vorrat im Blick behalten, Anfragen von Gästen vorbereiten.</p>
       </header>
       <div className="prose">

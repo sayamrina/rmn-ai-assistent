@@ -42,6 +42,7 @@ export default function Inbox() {
     <>
       <header className="page-head">
         <h1>Posteingang</h1>
+        <span className="id" lang="id">Kotak masuk</span>
         <p>Der Assistent liest Anfragen von Gästen, prüft sie gegen Reservierungsbuch, Speisekarte und Preisliste und schreibt einen Antwortentwurf. Gesendet und gebucht wird erst, wenn du freigibst.</p>
       </header>
       {error && <p className="error" role="alert">{error}</p>}

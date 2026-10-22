@@ -15,7 +15,7 @@ const SUGGESTIONS = [
 const WELCOME: Message = {
   role: "assistant",
   content:
-    "Hallo! Ich beantworte Fragen zu Speisekarte, Allergenen, Reservierungen, Catering, Hygiene und Einkauf. " +
+    "Selamat datang! Ich beantworte Fragen zu Speisekarte, Allergenen, Reservierungen, Catering, Hygiene und Einkauf. " +
     "Ich schaue dafür in unseren Unterlagen und Systemen nach und zeige dir unter jeder Antwort, wo.",
 };
 
@@ -52,6 +52,7 @@ export default function Chat() {
     <>
       <header className="page-head">
         <h1>Assistent</h1>
+        <span className="id" lang="id">Asisten</span>
         <p>Frag wie eine Kollegin oder einen Kollegen. Der Assistent antwortet nur aus Unterlagen und Systemen und sagt ehrlich, wenn er etwas nicht weiß.</p>
       </header>
       <section className="chat">
@@ -66,7 +67,7 @@ export default function Chat() {
               </div>
             ),
           )}
-          {busy && <div className="typing">Schaut nach …</div>}
+          {busy && <div className="typing">Sebentar, schaut nach …</div>}
           {messages.length === 1 && (
             <div className="suggest" aria-label="Beispielfragen">
               {SUGGESTIONS.map((s) => (
