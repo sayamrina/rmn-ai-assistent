@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: rmn-ai-assistent
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      # "demo" runs without a language model and costs nothing.
+      # Set to "openai" and add OPENAI_API_KEY in the Render dashboard to use a real model.
+      - key: LLM_PROVIDER
+        value: demo
+      - key: LLM_MODEL
+        value: gpt-4o-mini
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: SESSION_LIMIT_PER_HOUR
+        value: "20"
+      - key: GLOBAL_LIMIT_PER_DAY
+        value: "300"

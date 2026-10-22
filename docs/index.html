@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RMN AI Assistent</title>
+<meta name="description" content="An AI assistant for restaurant staff: answers from the restaurant's documents with sources, stock and supplier orders over an API, guest e-mails turned into checked drafts.">
+<meta name="theme-color" content="#23532c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232f6b3a'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23e3a512'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,800;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root { --paper: #f6f8f3; --surface: #fff; --ink: #221d17; --soft: #5f6457; --rule: #dfe4d8; --leaf: #2f6b3a; --leaf-deep: #23532c;
+  --kunyit: #e3a512; --kunyit-wash: #fbf0d2; --chili: #c2361f; --on-leaf: #fff; --sans: "Plus Jakarta Sans", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace; }
+@media (prefers-color-scheme: dark) {
+  :root { --paper: #141712; --surface: #1c201a; --ink: #ecebe4; --soft: #a7ad9c; --rule: #2e3429; --leaf: #7cc28a; --leaf-deep: #18241a; --kunyit-wash: #33290f; --on-leaf: #10140f; }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.62 var(--sans); }
+a { color: var(--leaf); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--kunyit); outline-offset: 3px; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+.bar { position: sticky; top: 0; z-index: 5; background: var(--leaf-deep); color: #f3f6ef; }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 20px; }
+.bar b { font-weight: 800; }
+.bar nav { display: flex; gap: 20px; font-size: 15px; }
+.bar nav a { color: #f3f6ef; text-decoration: none; opacity: .85; }
+.bar nav a:hover { opacity: 1; }
+.project-popup { display: flex; align-items: center; gap: 12px; width: fit-content; max-width: calc(100% - 32px); margin: 16px auto 0;
+  padding: 8px 10px 8px 14px; background: #fff; color: #18212b; font-size: 14px; line-height: 1.4;
+  border: 1px solid #dde3ea; border-left: 4px solid #2f6b3a; border-radius: 10px; box-shadow: 0 8px 24px rgba(0, 0, 0, .10); }
+.project-popup-badge { display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 50%; background: #2f6b3a; color: #fff; font-size: 13px; }
+.project-popup a { flex: none; padding: 7px 12px; background: #2f6b3a; color: #fff; font-weight: 700; text-decoration: none; border-radius: 6px; white-space: nowrap; }
+header { padding: 48px 0 36px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: center; }
+h1 { font-size: clamp(38px, 6vw, 60px); line-height: 1.02; font-weight: 800; letter-spacing: -.02em; margin: 0 0 16px; }
+.lead { font-size: 19px; margin: 0 0 22px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-block; padding: 11px 16px; border-radius: 8px; font-weight: 700; font-size: 15px; text-decoration: none; border: 1.5px solid var(--leaf); color: var(--leaf); }
+.btn.solid { background: var(--leaf); color: var(--on-leaf); }
+.note { font-size: 14.5px; color: var(--soft); margin-top: 14px; }
+/* the signature: a receipt of what the assistant looked up */
+.nota { background: var(--kunyit-wash); border-left: 3px solid var(--kunyit); padding: 14px 16px; font: 13.5px/1.55 var(--mono); }
+.nota .q { font-family: var(--sans); font-weight: 600; font-size: 15px; margin-bottom: 8px; }
+.nota .a { font-family: var(--sans); font-size: 15px; margin-bottom: 10px; }
+.nota .line { display: grid; grid-template-columns: 5.2rem minmax(0, 1fr); gap: 8px; border-top: 1px dashed rgba(122, 86, 0, .35); padding-top: 4px; margin-top: 4px; }
+.nota .k { color: var(--soft); }
+section { border-top: 1px solid var(--rule); padding: 40px 0; }
+h2 { font-size: 28px; font-weight: 800; letter-spacing: -.01em; margin: 0 0 8px; }
+.sub { color: var(--soft); margin: 0 0 22px; max-width: 62ch; }
+p { max-width: 68ch; }
+.rows { display: grid; gap: 28px; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 28px; align-items: start; }
+.row h3 { font-size: 20px; font-weight: 800; margin: 0 0 6px; }
+.row img { width: 100%; border: 1px solid var(--rule); border-radius: 8px; display: block; }
+ol.steps { list-style: none; counter-reset: s; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 32px; }
+ol.steps li { counter-increment: s; position: relative; padding-left: 44px; }
+ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--kunyit); color: #221d17; display: grid; place-items: center; font-weight: 800; font-size: 14px; }
+table { width: 100%; border-collapse: collapse; font-size: 16px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { color: var(--soft); font-weight: 600; font-size: 15px; }
+code, pre { font-family: var(--mono); }
+pre { background: var(--surface); border: 1px solid var(--rule); padding: 14px 16px; border-radius: 8px; overflow-x: auto; font-size: 14px; line-height: 1.55; }
+footer { border-top: 1px solid var(--rule); padding: 24px 0 56px; color: var(--soft); font-size: 15px; }
+@media (max-width: 820px) {
+  .wrap { padding: 0 16px; }
+  .bar nav { display: none; }
+  .project-popup { flex-wrap: wrap; }
+  header, .row, ol.steps { grid-template-columns: minmax(0, 1fr); }
+  header { padding-top: 32px; gap: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="bar"><div class="wrap"><b>RMN AI Assistent</b><nav aria-label="Sections"><a href="#features">Features</a><a href="#use">How to use</a><a href="#how">How it works</a><a href="#run">Run and test</a></nav></div></div>
+<aside class="project-popup" aria-label="Portfolio project">
+  <span class="project-popup-badge" aria-hidden="true">★</span>
+  <span>This website was developed by Amrina as part of a portfolio.</span>
+  <a href="https://sayamrina.github.io/" target="_blank" rel="noopener">View the portfolio →</a>
+</aside>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>An AI colleague for a small restaurant</h1>
+      <p class="lead">The staff of Rumah Makan Nusantara, a fictional Indonesian restaurant in Saarbrücken, ask it about allergens, stock or free tables. It answers only from the restaurant's documents and systems, prepares supplier orders and guest replies, and leaves every decision to a person.</p>
+      <div class="actions">
+        <a class="btn solid" href="https://rmn-ai-assistent.onrender.com/">Open the live app</a>
+        <a class="btn" href="https://github.com/sayamrina/rmn-ai-assistent">Code on GitHub</a>
+      </div>
+      <p class="note">The app is in German, like the restaurant's team. The free demo may take about a minute to wake up.</p>
+    </div>
+    <div class="nota" aria-label="Example answer">
+      <div class="q">„Welche Gerichte gehen bei Erdnussallergie?“</div>
+      <div class="a">Laut Speisekarte ohne Erdnüsse: Rendang Sapi, Ayam Bakar Taliwang, Nasi Goreng, Soto Ayam, Tempeh Orek, Es Teler. Erdnüsse enthalten Gado-Gado und Sate Ayam.</div>
+      <div class="line"><span class="k">Dokument</span><span>Speisekarte › Allergenangaben</span></div>
+      <div class="line"><span class="k">Dokument</span><span>Hygiene und HACCP › Allergene</span></div>
+    </div>
+  </header>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <h2>What it does</h2>
+    <p class="sub">Four everyday jobs in a restaurant, each with the AI doing the legwork and a person deciding.</p>
+    <div class="rows">
+      <div class="row">
+        <div><h3>Answers with sources</h3><p>Questions about dishes, allergens, opening hours, catering or hygiene rules are answered from the restaurant's own documents (retrieval-augmented generation). Under every answer, a receipt lists the sections and system records it used. If nothing matches, the assistant says it does not know.</p></div>
+        <img src="img/chat.png" alt="Chat answer listing dishes without peanuts, with a receipt of the documents used" loading="lazy">
+      </div>
+      <div class="row">
+        <div><h3>Stock and supplier orders</h3><p>Stock comes from the inventory system through a REST API. Below the minimum, the app proposes an order per supplier in full packs, warns about minimum order values and asks management to approve orders over 500 €.</p></div>
+        <img src="img/vorrat.png" alt="Stock table with minimum levels and a supplier order proposal" loading="lazy">
+      </div>
+      <div class="row">
+        <div><h3>Guest e-mails become checked drafts</h3><p>The assistant reads a reservation or catering request, checks opening hours, free seats, allergens and prices, and writes a reply. The reservation is only booked when a person approves the draft.</p></div>
+        <img src="img/posteingang.png" alt="Reservation e-mail with extracted fields, checks and a reply draft" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="use">
+  <div class="wrap">
+    <h2>How to use it</h2>
+    <p class="sub">About five minutes, no account needed.</p>
+    <ol class="steps">
+      <li>Open the <a href="https://rmn-ai-assistent.onrender.com/">live app</a>. In <b>Assistent</b>, click one of the example questions.</li>
+      <li>Ask something that is not in the documents, such as the weather. The assistant says honestly that it does not know.</li>
+      <li>In <b>Vorrat &amp; Einkauf</b>, create an order draft for a supplier and send it.</li>
+      <li>In <b>Posteingang</b>, open the Saturday reservation request and click <i>Auswerten</i>.</li>
+      <li>Approve the reply. The table appears under <b>Reservierungen</b> and the step in the <b>Protokoll</b>.</li>
+      <li>Try the Monday request (closed day, alternative offered) and the catering request.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <table>
+      <thead><tr><th>Part</th><th>Choice</th></tr></thead>
+      <tbody>
+        <tr><td>Knowledge</td><td>Restaurant documents in Markdown, split by section, BM25 retrieval with a score threshold; allergen answers read directly from the menu's allergen codes</td></tr>
+        <tr><td>Tools</td><td>Six read-only tools (documents, stock, low stock, order proposal, availability, reservations) with JSON schemas; the model cannot call anything else</td></tr>
+        <tr><td>Business rules</td><td>Computed in code: order quantities, approval limit, opening hours, seat capacity, catering prices and lead times</td></tr>
+        <tr><td>Model</td><td>Any OpenAI-compatible endpoint: OpenAI, or a self-hosted model (Ollama, vLLM) so data stays on your own server; a rule-based demo mode needs no model</td></tr>
+        <tr><td>Backend</td><td>Python, FastAPI, SQLite, audit log, rate limits for public demos</td></tr>
+        <tr><td>Frontend</td><td>React with TypeScript</td></tr>
+        <tr><td>Quality</td><td>16 automated tests, including a fake model that exercises the tool-calling loop; CI on GitHub Actions; Docker</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="run">
+  <div class="wrap">
+    <h2>Run and test it yourself</h2>
+<pre>git clone https://github.com/sayamrina/rmn-ai-assistent.git && cd rmn-ai-assistent
+docker build -t rmn-ai-assistent . && docker run -p 8000:8000 rmn-ai-assistent
+
+# or without Docker
+python -m venv .venv && .venv/bin/pip install -r backend/requirements-dev.txt
+(cd frontend && npm ci && npm run build)
+cd backend && ../.venv/bin/pytest -q && ../.venv/bin/uvicorn app.main:app --port 8000</pre>
+    <p>Set <code>LLM_PROVIDER=openai</code> with <code>OPENAI_API_KEY</code>, or <code>LLM_PROVIDER=local</code> with <code>LLM_BASE_URL</code> for a self-hosted model.</p>
+    <p class="note">Rumah Makan Nusantara, its menu, suppliers, guests and e-mails are fictional. This app was built by Amrina, with AI as a supporting tool for coding.</p>
+  </div>
+</section>
+
+<footer><div class="wrap"><a href="https://rmn-ai-assistent.onrender.com/">Live app</a> · <a href="https://github.com/sayamrina/rmn-ai-assistent">Code</a> · <a href="https://sayamrina.github.io/">Portfolio</a></div></footer>
+</body>
+</html>

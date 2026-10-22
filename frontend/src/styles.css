@@ -138,7 +138,9 @@ dl.extract dd { margin: 0; }
   .side .mode { display: none; }
   main { padding: 0 16px 40px; }
   .grid-2, .inbox { grid-template-columns: minmax(0, 1fr); }
-  .chat { height: calc(100vh - 260px); }
+  .chat { display: block; height: auto; min-height: 0; }
+  .thread { overflow: visible; padding-bottom: 8px; }
+  .chat > div:last-child { position: sticky; bottom: 0; background: var(--paper); padding: 10px 0 12px; border-top: 1px solid var(--rule); }
   .project-popup { flex-wrap: wrap; }
   .hide-sm { display: none; }
 }
