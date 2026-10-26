@@ -89,7 +89,7 @@ footer { border-top: 1px solid var(--rule); padding: 24px 0 56px; color: var(--s
     <div>
       <h1>An AI colleague for a small restaurant</h1>
       <p class="lead" lang="id" style="font-style:italic;color:var(--leaf);margin:-6px 0 12px">Selamat datang di Rumah Makan Nusantara.</p>
-      <p class="lead">The staff of Rumah Makan Nusantara, a fictional Indonesian restaurant in Saarbrücken, ask it about allergens, stock or free tables. It answers only from the restaurant's documents and systems, prepares supplier orders and guest replies, and leaves every decision to a person.</p>
+      <p class="lead">The staff of Rumah Makan Nusantara, an Indonesian restaurant in Saarbrücken (personal project), ask it about allergens, stock or free tables. It answers only from the restaurant's documents and systems, prepares supplier orders and guest replies, and leaves every decision to a person.</p>
       <div class="actions">
         <a class="btn solid" href="https://rmn-ai-assistent.onrender.com/">Open the live app</a>
         <a class="btn" href="https://github.com/sayamrina/rmn-ai-assistent">Code on GitHub</a>
@@ -170,7 +170,7 @@ python -m venv .venv && .venv/bin/pip install -r backend/requirements-dev.txt
 (cd frontend && npm ci && npm run build)
 cd backend && ../.venv/bin/pytest -q && ../.venv/bin/uvicorn app.main:app --port 8000</pre>
     <p>Set <code>LLM_PROVIDER=openai</code> with <code>OPENAI_API_KEY</code>, or <code>LLM_PROVIDER=local</code> with <code>LLM_BASE_URL</code> for a self-hosted model.</p>
-    <p class="note">Rumah Makan Nusantara, its menu, suppliers, guests and e-mails are fictional. This app was built by Amrina, with AI as a supporting tool for coding.</p>
+    <p class="note">Rumah Makan Nusantara, its menu, suppliers, guests and e-mails are sample data from a personal project. This app was built by Amrina, with AI as a supporting tool for coding.</p>
   </div>
 </section>
 

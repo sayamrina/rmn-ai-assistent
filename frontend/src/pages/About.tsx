@@ -8,7 +8,7 @@ export default function About() {
       </header>
       <div className="prose">
         <p>
-          Das <b>Rumah Makan Nusantara</b> in Saarbrücken ist ein <b>fiktives</b> indonesisches Restaurant. Speisekarte, Bestände,
+          Das <b>Rumah Makan Nusantara</b> in Saarbrücken ist ein indonesisches Restaurant, ein <b>persönliches Projekt</b>. Speisekarte, Bestände,
           Reservierungen und E-Mails sind Beispieldaten. Die App zeigt, wie ein kleiner Betrieb KI im Alltag nutzen kann,
           ohne dass die KI etwas erfindet oder allein entscheidet.
         </p>

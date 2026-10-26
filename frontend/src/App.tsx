@@ -75,7 +75,7 @@ export default function App() {
             </>
           ) : null}
           <br />
-          Fiktives Restaurant, alle Daten sind Beispieldaten.
+          Persönliches Projekt, alle Daten sind Beispieldaten.
         </div>
       </aside>
       <main>

@@ -4,7 +4,7 @@
 
 **Project 2026** · [Live app](https://rmn-ai-assistent.onrender.com/) · [Project page](https://sayamrina.github.io/rmn-ai-assistent/) · [Portfolio](https://sayamrina.github.io/)
 
-An AI assistant for the staff of **Rumah Makan Nusantara**, a *fictional* Indonesian restaurant in Saarbrücken. It answers questions from the restaurant's own documents, looks up stock and reservations through an API, prepares supplier orders and turns guest e-mails into checked reply drafts. It never invents an answer, and nothing is sent or booked before a person approves. The interface is in German, like the restaurant's team.
+An AI assistant for the staff of **Rumah Makan Nusantara**, an Indonesian restaurant in Saarbrücken (personal project). It answers questions from the restaurant's own documents, looks up stock and reservations through an API, prepares supplier orders and turns guest e-mails into checked reply drafts. It never invents an answer, and nothing is sent or booked before a person approves. The interface is in German, like the restaurant's team.
 
 ![Assistant answering an allergy question, with the receipt of what it looked up](docs/img/chat.png)
 
@@ -67,6 +67,6 @@ backend/app/
 frontend/src/    React + TypeScript (Assistent, Vorrat & Einkauf, Posteingang, Reservierungen, Protokoll, Über)
 ```
 
-Rumah Makan Nusantara, its menu, suppliers, guests and e-mails are fictional sample data.
+Rumah Makan Nusantara, its menu, suppliers, guests and e-mails are sample data from a personal project.
 
 This app was built by Amrina, with AI as a supporting tool for coding.

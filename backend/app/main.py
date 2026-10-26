@@ -49,7 +49,7 @@ class Limiter:
 
 def create_app(db: Database | None = None, client=None) -> FastAPI:
     app = FastAPI(title="RMN AI Assistent", version="1.0.0",
-                  description="KI-Assistent für das Personal des Rumah Makan Nusantara (fiktives Restaurant)")
+                  description="KI-Assistent für das Personal des Rumah Makan Nusantara (persönliches Projekt)")
     app.state.db = db or Database()
     tools = Tools(app.state.db)
     assistant = Assistant(tools, client if client is not None else make_client())
@@ -87,7 +87,7 @@ def create_app(db: Database | None = None, client=None) -> FastAPI:
     @app.get("/api/meta")
     def meta():
         return {"mode": assistant.mode, "model": None if assistant.client is None else settings.llm_model,
-                "restaurant": "Rumah Makan Nusantara, Saarbrücken (fiktiv)", "seats": settings.seats}
+                "restaurant": "Rumah Makan Nusantara, Saarbrücken (persönliches Projekt)", "seats": settings.seats}
 
     @app.post("/api/chat")
     def chat(q: Question, request: Request):
